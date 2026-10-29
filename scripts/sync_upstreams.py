@@ -344,7 +344,7 @@ def render_body(
         for target in entry["targets"]:
             targets_by_os.setdefault(target["os"], []).append(target)
         name_url = entry.get("html_url") or f"https://github.com/{entry['repo']}/releases"
-        mark = "**[新]** " if entry.get("reasons") else ""
+        mark = "<b>[新]</b> " if entry.get("reasons") else ""
         cells = []
         for os_key in TABLE_OS:
             badges = [

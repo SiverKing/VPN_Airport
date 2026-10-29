@@ -310,12 +310,22 @@ def render_body(
 ) -> str:
     """一张转置的表格：表头是各平台，一行一个软件，徽章横向排列（最省纵向空间）。"""
     base = f"https://github.com/{repo}/releases/download/{tag}"
-    versions = " · ".join(f"{entry['name']} {entry['version']}" for entry in entries)
+    updated = [f"{entry['name']} {entry['version']}" for entry in entries if entry.get("reasons")]
+    unchanged = [f"{entry['name']} {entry['version']}" for entry in entries if not entry.get("reasons")]
     lines = [
         "# 软件备份",
         "",
         "> 点图标直接下载（全部为上游原版安装包，保持原始文件名）；点软件名看上游更新日志。",
-        f"> 本次包含：{versions}",
+    ]
+    if updated:
+        lines.append(
+            f"> 🆕 **本次更新（{len(updated)} 个）**：" + " · ".join(f"**{item}**" for item in updated)
+        )
+    if unchanged:
+        lines.append(f"> ⏸ 版本未变（{len(unchanged)} 个，和上一个 Release 相同）：" + " · ".join(unchanged))
+    if not updated:
+        lines.append("> 本次没有检测到上游新版本（强制/兜底发布），全部沿用上一个 Release 的版本。")
+    lines += [
         "",
         "## 直链下载",
         "",
@@ -334,6 +344,7 @@ def render_body(
         for target in entry["targets"]:
             targets_by_os.setdefault(target["os"], []).append(target)
         name_url = entry.get("html_url") or f"https://github.com/{entry['repo']}/releases"
+        mark = "🆕 " if entry.get("reasons") else ""
         cells = []
         for os_key in TABLE_OS:
             badges = [
@@ -342,7 +353,7 @@ def render_body(
             ]
             cells.append("<td>" + "&#160;".join(badges) + "</td>")
         lines.append(
-            f'        <tr><td><a href="{name_url}">{entry["name"]} {entry["version"]}</a></td>'
+            f'        <tr><td>{mark}<a href="{name_url}">{entry["name"]} {entry["version"]}</a></td>'
             + "".join(cells)
             + "</tr>"
         )

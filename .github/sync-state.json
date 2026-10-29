@@ -1,6 +1,213 @@
 {
+  "apps": {
+    "clash-party": {
+      "repo": "mihomo-party-org/clash-party",
+      "tag": "v2.0.4",
+      "targets": {
+        "linux-arch": {
+          "name": "clash-party-linux-2.0.4-x64.pkg.tar.zst",
+          "sha256": "c2df7d73ace292d7667e76fd42464c16c464ede58c0b805d86eb9271b10e803b",
+          "size": 244070087
+        },
+        "linux-deb": {
+          "name": "clash-party-linux-2.0.4-amd64.deb",
+          "sha256": "33f3b75a8c0ed91c09499c0b9f2e0eb755e5ae13f69d6ffabab713fbb9bbf3a4",
+          "size": 202066144
+        },
+        "linux-rpm": {
+          "name": "clash-party-linux-2.0.4-x86_64.rpm",
+          "sha256": "59f32ac2819090c25474cc9ec1e32c3f52d91a39ec454036f833fdb726b6e6bc",
+          "size": 166154201
+        },
+        "macos-arm": {
+          "name": "clash-party-macos-2.0.4-arm64.pkg",
+          "sha256": "174b4b19b02151b2ef84517da0b192e834e43fb4c0ca7fe8700363162cabf7e1",
+          "size": 243393267
+        },
+        "macos-intel": {
+          "name": "clash-party-macos-2.0.4-x64.pkg",
+          "sha256": "b93a845ecc0eb95da80184e8d3ebb2b94f5d2b9024df7065f9cdf1f23c868432",
+          "size": 261748060
+        },
+        "windows-portable": {
+          "name": "clash-party-windows-2.0.4-x64-portable.7z",
+          "sha256": "182063a60b9a06535d176742d627f8b8c95a99aae85fc8752c880efee7da5157",
+          "size": 175672213
+        },
+        "windows-setup": {
+          "name": "clash-party-windows-2.0.4-x64-setup.exe",
+          "sha256": "f7cac1e588851197833c456a827cb611b6145e76be53dfd0f4df56e214c764d3",
+          "size": 208304471
+        }
+      }
+    },
+    "clash-verge": {
+      "repo": "clash-verge-rev/clash-verge-rev",
+      "tag": "v2.5.8",
+      "targets": {
+        "linux-deb": {
+          "name": "Clash.Verge_2.5.8_amd64.deb",
+          "sha256": "ceeb7578c6f030b33ddf6346486db24013cf4557cc340de5f312f98a924a8546",
+          "size": 104179124
+        },
+        "linux-rpm": {
+          "name": "Clash.Verge-2.5.8-1.x86_64.rpm",
+          "sha256": "ad378ea9fb12ebae49500fcddb0435fd67abef79d828b654368e0f67b5785c2e",
+          "size": 104176465
+        },
+        "macos-arm": {
+          "name": "Clash.Verge_2.5.8_aarch64.dmg",
+          "sha256": "1f7c3a73970f103fc3cb9944744772fa1540160f05911e033ffc57f7c9f860ec",
+          "size": 81825361
+        },
+        "macos-intel": {
+          "name": "Clash.Verge_2.5.8_x64.dmg",
+          "sha256": "8cdf7a01a1c548a081339aff21b2599d60f67730d05485e90831f4bbdbf3b093",
+          "size": 87523387
+        },
+        "windows-setup": {
+          "name": "Clash.Verge_2.5.8_x64-setup.exe",
+          "sha256": "821c0f5957f84c8f7d14532044840e8280d708af24a6a143db360b49bd1e7302",
+          "size": 60230483
+        }
+      }
+    },
+    "clashmeta": {
+      "repo": "MetaCubeX/ClashMetaForAndroid",
+      "tag": "v2.11.36",
+      "targets": {
+        "android-armv7": {
+          "name": "cmfa-2.11.36-meta-armeabi-v7a-release.apk",
+          "sha256": "bd500e3d04e619e8d85e8ca196c8fd42de285fc5d3811e4cd3ee5dc355cd7dea",
+          "size": 47586709
+        },
+        "android-armv8": {
+          "name": "cmfa-2.11.36-meta-arm64-v8a-release.apk",
+          "sha256": "7da3083c16af676f9a3e478e3f42098b91803cbd7cb637bff4117d4d50360f95",
+          "size": 47623688
+        },
+        "android-x64": {
+          "name": "cmfa-2.11.36-meta-x86_64-release.apk",
+          "sha256": "aa70600b1cdc4211b8fd314d44d32c830c2bd60ef1c4185457b9eb17a17ec83e",
+          "size": 49543854
+        }
+      }
+    },
+    "flclash": {
+      "repo": "chen08209/FlClash",
+      "tag": "v0.9.2",
+      "targets": {
+        "android-armv7": {
+          "name": "FlClash-0.9.2-android-armeabi-v7a.apk",
+          "sha256": "f73993e64504b66ff379333f5560553a68188278f72298ab077abdd5d0bb030f",
+          "size": 61087115
+        },
+        "android-armv8": {
+          "name": "FlClash-0.9.2-android-arm64-v8a.apk",
+          "sha256": "ff6a953c0f5c12e6bdc97b49428b565b64c4a62d85e50081823ba297407529b1",
+          "size": 61083319
+        },
+        "android-x64": {
+          "name": "FlClash-0.9.2-android-x86_64.apk",
+          "sha256": "7a99306819eddf7f4ff28f7f475e3a57c23e319a6991d92f412aef0c4d3550e9",
+          "size": 63599561
+        },
+        "linux-appimage": {
+          "name": "FlClash-0.9.2-linux-amd64.AppImage",
+          "sha256": "fdb2140e3f3722494bd580085d1e6ddf3f8baa21c6be0d47de20a6637c6472fc",
+          "size": 69833920
+        },
+        "linux-deb": {
+          "name": "FlClash-0.9.2-linux-amd64.deb",
+          "sha256": "c6ca37446db92b57309d1c709fba6209f2c679b6d33cfc748f73b8eb1a59a6e8",
+          "size": 40536736
+        },
+        "linux-rpm": {
+          "name": "FlClash-0.9.2-linux-amd64.rpm",
+          "sha256": "bfb0cca7216861091221b91f6f9fdb5f04641e6c1d0f858ffca19936bd5876ba",
+          "size": 59909376
+        },
+        "macos-arm": {
+          "name": "FlClash-0.9.2-macos-arm64.dmg",
+          "sha256": "216f71773b70941afe3f6d1df6f21df05810e109bb8075f44560a0349e66e0d2",
+          "size": 59274695
+        },
+        "macos-intel": {
+          "name": "FlClash-0.9.2-macos-amd64.dmg",
+          "sha256": "e545c5539c631c0116e9d58a04b3fb95ce587304616e85489ba15a54e8c7eb70",
+          "size": 63130721
+        },
+        "windows-portable": {
+          "name": "FlClash-0.9.2-windows-amd64.zip",
+          "sha256": "6d9de92c4132743a44a96a65e1de20a038a51d791cbd0991ba212b81d2c17a80",
+          "size": 68849327
+        },
+        "windows-setup": {
+          "name": "FlClash-0.9.2-windows-amd64-setup.exe",
+          "sha256": "66f36826724c2d19f339933963eef962550ba7d54d1d627efc0e34b14236b86e",
+          "size": 43335463
+        }
+      }
+    },
+    "v2rayn": {
+      "repo": "2dust/v2rayN",
+      "tag": "7.25.6",
+      "targets": {
+        "linux-deb": {
+          "name": "v2rayN-linux-64.deb",
+          "sha256": "b7220c636d17b925814804d4171cba9b3aa1f771baae8b570403f2c8850406e8",
+          "size": 86619748
+        },
+        "linux-rpm": {
+          "name": "v2rayN-linux-rhel-64.rpm",
+          "sha256": "9468c63e7c5064ac4eefa6e6fecfb5d9320d18af94920566ea8b0aaaf3ac0ae1",
+          "size": 95991224
+        },
+        "macos-arm": {
+          "name": "v2rayN-macos-arm64.dmg",
+          "sha256": "81c979a7fa480a24a7e9f9629992c2641f78d7b75a8ca8ce588ba36bfcbbbf91",
+          "size": 135534635
+        },
+        "macos-intel": {
+          "name": "v2rayN-macos-64.dmg",
+          "sha256": "92b15c6bf634b7fe94d4a82b25ff1a1738cf80f6c6886f66d2dff52efd84f13f",
+          "size": 142743437
+        },
+        "windows-portable": {
+          "name": "v2rayN-windows-64.zip",
+          "sha256": "9b94718c2a214a246b04dec84b9a27f1f0ced8489c2dd25eb80a0fbb806bd13f",
+          "size": 168730000
+        },
+        "windows-setup": {
+          "name": "v2rayN-windows-64-desktop.zip",
+          "sha256": "defb18a16dac1d44659c30d0b8934f8b085cf540133574b892919ea29b083b00",
+          "size": 144735873
+        }
+      }
+    },
+    "v2rayng": {
+      "repo": "2dust/v2rayNG",
+      "tag": "2.3.14",
+      "targets": {
+        "android-armv7": {
+          "name": "v2rayNG_2.3.14_armeabi-v7a.apk",
+          "sha256": "02bf365b9445d3285e96ef04a4d2a8e526e340590dd05d94b12e689cf09a5a4a",
+          "size": 33008790
+        },
+        "android-armv8": {
+          "name": "v2rayNG_2.3.14_arm64-v8a.apk",
+          "sha256": "e574d20ae4f2962c225785c31480b1c82a2a0dae1b7fbda5bf7fb510d8c3a05b",
+          "size": 32470932
+        },
+        "android-x64": {
+          "name": "v2rayNG_2.3.14_x86_64.apk",
+          "sha256": "2e9d0f17b032787cc406534fb90a91e7a3a77275b32afb3ef84a88e4cf58d0df",
+          "size": 33518759
+        }
+      }
+    }
+  },
+  "last_release_tag": "v20261029",
   "schema": 2,
-  "updated_at": null,
-  "last_release_tag": null,
-  "apps": {}
+  "updated_at": "2026-10-29T11:58:50Z"
 }

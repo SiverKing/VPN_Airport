@@ -1,0 +1,114 @@
+name: 同步上游安装包
+
+# 每天北京时间 03:23 检查一次上游；也可以在 Actions 页面手动触发。
+# 只有「有更新的上游数量 ≥ min_updated_apps_to_release（默认 3）」时才发一个新的 Release。
+# 注意：cron 用 UTC。避开整点，降低被高负载延迟 / 丢队列的概率。
+on:
+  schedule:
+    - cron: "23 19 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "忽略更新数量阈值，直接发一个 Release"
+        type: boolean
+        default: false
+      dry_run:
+        description: "只输出计划，不创建 Release（不会下载/上传）"
+        type: boolean
+        default: false
+      only:
+        description: "只把指定软件计入『有更新』统计，逗号分隔（调试用，如 flclash,v2rayn）"
+        type: string
+        default: ""
+
+# 仓库默认 workflow 权限是「只读」，这里必须显式申请写权限，才能创建 Release / 提交 state
+permissions:
+  contents: write
+
+# 同一时间只跑一个，避免两个任务抢同一个 tag
+concurrency:
+  group: sync-upstreams
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+
+    steps:
+      - name: 拉取仓库
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: 检查环境
+        run: |
+          python3 --version
+          gh --version
+          df -h /
+
+      - name: 同步上游安装包
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          INPUT_FORCE: ${{ inputs.force }}
+          INPUT_DRY_RUN: ${{ inputs.dry_run }}
+          INPUT_ONLY: ${{ inputs.only }}
+        run: |
+          args=()
+          if [ "$INPUT_FORCE" = "true" ]; then args+=(--force); fi
+          if [ "$INPUT_DRY_RUN" = "true" ]; then args+=(--dry-run); fi
+          if [ -n "$INPUT_ONLY" ]; then args+=(--only "$INPUT_ONLY"); fi
+          python3 scripts/sync_upstreams.py "${args[@]}"
+
+      - name: 提交同步状态
+        if: ${{ !cancelled() && inputs.dry_run != true }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/sync-state.json
+          if git diff --cached --quiet; then
+            echo "state 无变化，跳过提交"
+            exit 0
+          fi
+          git commit -m "chore(sync): 记录上游版本 [skip ci]"
+          for i in 1 2 3; do
+            if git push; then
+              echo "state 已提交"
+              exit 0
+            fi
+            echo "push 失败，尝试 rebase 后重试（$i/3）"
+            git pull --rebase --autostash || true
+            sleep 5
+          done
+          echo "::error::state 提交失败：Release 已发布，但 .github/sync-state.json 没推上去，请手动提交，否则下次会重复发版"
+          exit 1
+
+      - name: 保活（避免定时任务被停用）
+        if: ${{ always() && github.event_name == 'schedule' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          last_commit=$(git log -1 --format=%ct)
+          now=$(date +%s)
+          idle_days=$(( (now - last_commit) / 86400 ))
+          echo "仓库已 $idle_days 天没有提交"
+          # 公开仓库连续 60 天没有活动，定时任务会被 GitHub 自动停用；
+          # 这里在空闲时每 30 天补一个空提交，避免哪天需要手动去重新启用。
+          if [ "$idle_days" -lt 30 ]; then
+            echo "不需要保活"
+            exit 0
+          fi
+          git commit --allow-empty -m "chore: 保活，避免定时任务被停用 [skip ci]"
+          for i in 1 2 3; do
+            if git push; then
+              echo "保活提交已推送"
+              exit 0
+            fi
+            git pull --rebase --autostash || true
+            sleep 5
+          done
+          echo "::warning::保活提交失败，可忽略"
+
+      - name: 磁盘占用
+        if: always()
+        run: df -h /

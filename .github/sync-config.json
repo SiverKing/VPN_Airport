@@ -1,0 +1,148 @@
+{
+  "$comment": [
+    "自动同步配置。apps 的顺序决定 Release 里各软件区块的顺序；source_order 决定『原始链接』的顺序。",
+    "每个 app 的 targets 是「平台目标」列表：os 取 android/windows/macos/linux，match 是对上游资产文件名做 fullmatch 的正则，",
+    "badge 是 shields.io 徽章的路径（https://img.shields.io/badge/<badge>），换颜色/图标直接改这里。",
+    "可选字段：include_prerelease(是否跟随预发布版)、exclude(额外排除正则)。",
+    "settings.min_updated_apps_to_release：有更新的上游数量达到这个值才发 Release（3 = 大于两个）。",
+    "settings.max_days_between_releases：兜底，距上次发布超过这么多天即使更新不够也发（0 = 关闭）。"
+  ],
+  "settings": {
+    "timezone": "Asia/Shanghai",
+    "tag_prefix": "v",
+    "include_prerelease": false,
+    "min_updated_apps_to_release": 3,
+    "min_days_between_releases": 0,
+    "max_days_between_releases": 30,
+    "checksums": true,
+    "asset_excludes": [
+      "\\.(sig|asc|sha256|sha256sum|md5|txt|json|yml)$",
+      "-fdroid"
+    ]
+  },
+  "apps": [
+    {
+      "key": "flclash",
+      "name": "FlClash",
+      "repo": "chen08209/FlClash",
+      "targets": [
+        {"key": "android-armv8", "os": "android", "badge": "APK-ARMv8-168039.svg?logo=android",
+         "match": "^FlClash-.*-android-arm64-v8a\\.apk$"},
+        {"key": "android-armv7", "os": "android", "badge": "APK-ARMv7-45bf55.svg?logo=android",
+         "match": "^FlClash-.*-android-armeabi-v7a\\.apk$"},
+        {"key": "android-x64", "os": "android", "badge": "APK-x64-96ed89.svg?logo=android",
+         "match": "^FlClash-.*-android-x86_64\\.apk$"},
+        {"key": "windows-setup", "os": "windows", "badge": "Setup-x64-2d7d9a.svg?logo=windows",
+         "match": "^FlClash-.*-windows-amd64-setup\\.exe$"},
+        {"key": "windows-portable", "os": "windows", "badge": "Portable-x64-67b7d1.svg?logo=windows",
+         "match": "^FlClash-.*-windows-amd64\\.zip$"},
+        {"key": "macos-arm", "os": "macos", "badge": "DMG-Apple%20Silicon-%23000000.svg?logo=apple",
+         "match": "^FlClash-.*-macos-arm64\\.dmg$"},
+        {"key": "macos-intel", "os": "macos", "badge": "DMG-Intel%20X64-%2300A9E0.svg?logo=apple",
+         "match": "^FlClash-.*-macos-amd64\\.dmg$"},
+        {"key": "linux-appimage", "os": "linux", "badge": "AppImage-x64-f84e29.svg?logo=linux",
+         "match": "^FlClash-.*-linux-amd64\\.AppImage$"},
+        {"key": "linux-deb", "os": "linux", "badge": "DebPackage-x64-FF9966.svg?logo=debian",
+         "match": "^FlClash-.*-linux-amd64\\.deb$"},
+        {"key": "linux-rpm", "os": "linux", "badge": "RpmPackage-x64-F1B42F.svg?logo=redhat",
+         "match": "^FlClash-.*-linux-amd64\\.rpm$"}
+      ]
+    },
+    {
+      "key": "clash-verge",
+      "name": "Clash.Verge",
+      "repo": "clash-verge-rev/clash-verge-rev",
+      "exclude": ["fixed_webview2"],
+      "targets": [
+        {"key": "windows-setup", "os": "windows", "badge": "Setup-x64-2d7d9a.svg?logo=windows",
+         "match": "^Clash\\.Verge_.*_x64-setup\\.exe$"},
+        {"key": "macos-arm", "os": "macos", "badge": "DMG-Apple%20Silicon-%23000000.svg?logo=apple",
+         "match": "^Clash\\.Verge_.*_aarch64\\.dmg$"},
+        {"key": "macos-intel", "os": "macos", "badge": "DMG-Intel%20X64-%2300A9E0.svg?logo=apple",
+         "match": "^Clash\\.Verge_.*_x64\\.dmg$"},
+        {"key": "linux-deb", "os": "linux", "badge": "DebPackage-x64-FF9966.svg?logo=debian",
+         "match": "^Clash\\.Verge_.*_amd64\\.deb$"},
+        {"key": "linux-rpm", "os": "linux", "badge": "RpmPackage-x64-F1B42F.svg?logo=redhat",
+         "match": "^Clash\\.Verge-.*\\.x86_64\\.rpm$"}
+      ]
+    },
+    {
+      "key": "clash-party",
+      "name": "clash-party",
+      "repo": "mihomo-party-org/clash-party",
+      "exclude": ["win7-", "catalina-"],
+      "targets": [
+        {"key": "windows-setup", "os": "windows", "badge": "Setup-x64-2d7d9a.svg?logo=windows",
+         "match": "^clash-party-windows-.*-x64-setup\\.exe$"},
+        {"key": "windows-portable", "os": "windows", "badge": "Portable-x64-67b7d1.svg?logo=windows",
+         "match": "^clash-party-windows-.*-x64-portable\\.7z$"},
+        {"key": "macos-arm", "os": "macos", "badge": "PKG-Apple%20Silicon-%23000000.svg?logo=apple",
+         "match": "^clash-party-macos-.*-arm64\\.pkg$"},
+        {"key": "macos-intel", "os": "macos", "badge": "PKG-Intel%20X64-%2300A9E0.svg?logo=apple",
+         "match": "^clash-party-macos-.*-x64\\.pkg$"},
+        {"key": "linux-deb", "os": "linux", "badge": "DebPackage-x64-FF9966.svg?logo=debian",
+         "match": "^clash-party-linux-.*-amd64\\.deb$"},
+        {"key": "linux-rpm", "os": "linux", "badge": "RpmPackage-x64-F1B42F.svg?logo=redhat",
+         "match": "^clash-party-linux-.*-x86_64\\.rpm$"},
+        {"key": "linux-arch", "os": "linux", "badge": "ArchPackage-x64-1793D1.svg?logo=archlinux",
+         "match": "^clash-party-linux-.*-x64\\.pkg\\.tar\\.zst$"}
+      ]
+    },
+    {
+      "key": "v2rayn",
+      "name": "v2rayN",
+      "repo": "2dust/v2rayN",
+      "targets": [
+        {"key": "windows-setup", "os": "windows", "badge": "Setup-x64-2d7d9a.svg?logo=windows",
+         "match": "^v2rayN-windows-64-desktop.*\\.zip$"},
+        {"key": "windows-portable", "os": "windows", "badge": "Portable-x64-67b7d1.svg?logo=windows",
+         "match": "^v2rayN-windows-64\\.zip$"},
+        {"key": "macos-arm", "os": "macos", "badge": "DMG-Apple%20Silicon-%23000000.svg?logo=apple",
+         "match": "^v2rayN-macos-arm64.*\\.dmg$"},
+        {"key": "macos-intel", "os": "macos", "badge": "DMG-Intel%20X64-%2300A9E0.svg?logo=apple",
+         "match": "^v2rayN-macos-64\\.dmg$"},
+        {"key": "linux-deb", "os": "linux", "badge": "DebPackage-x64-FF9966.svg?logo=debian",
+         "match": "^v2rayN-linux-64\\.deb$"},
+        {"key": "linux-rpm", "os": "linux", "badge": "RpmPackage-x64-F1B42F.svg?logo=redhat",
+         "match": "^v2rayN-linux-rhel-64\\.rpm$"}
+      ]
+    },
+    {
+      "key": "clashmeta",
+      "name": "ClashMeta",
+      "repo": "MetaCubeX/ClashMetaForAndroid",
+      "exclude": ["-alpha"],
+      "targets": [
+        {"key": "android-armv8", "os": "android", "badge": "APK-ARMv8-168039.svg?logo=android",
+         "match": "^cmfa-.*-meta-arm64-v8a-release\\.apk$"},
+        {"key": "android-armv7", "os": "android", "badge": "APK-ARMv7-45bf55.svg?logo=android",
+         "match": "^cmfa-.*-meta-armeabi-v7a-release\\.apk$"},
+        {"key": "android-x64", "os": "android", "badge": "APK-x64-96ed89.svg?logo=android",
+         "match": "^cmfa-.*-meta-x86_64-release\\.apk$"}
+      ]
+    },
+    {
+      "key": "v2rayng",
+      "name": "v2rayNG",
+      "repo": "2dust/v2rayNG",
+      "include_prerelease": true,
+      "_note": "v2rayNG 上游长期把新版本标成 prerelease（2.3.12~2.3.14 都是）；只跟正式版会一直停在 2.3.11，所以跟随最新。想只备份正式版就改成 false。",
+      "targets": [
+        {"key": "android-armv8", "os": "android", "badge": "APK-ARMv8-168039.svg?logo=android",
+         "match": "^v2rayNG_[0-9][^_]*_arm64-v8a\\.apk$"},
+        {"key": "android-armv7", "os": "android", "badge": "APK-ARMv7-45bf55.svg?logo=android",
+         "match": "^v2rayNG_[0-9][^_]*_armeabi-v7a\\.apk$"},
+        {"key": "android-x64", "os": "android", "badge": "APK-x64-96ed89.svg?logo=android",
+         "match": "^v2rayNG_[0-9][^_]*_x86_64\\.apk$"}
+      ]
+    }
+  ],
+  "source_order": [
+    "clash-verge",
+    "clash-party",
+    "clashmeta",
+    "flclash",
+    "v2rayng",
+    "v2rayn"
+  ]
+}

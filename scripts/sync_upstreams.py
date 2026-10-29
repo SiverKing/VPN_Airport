@@ -46,11 +46,11 @@ API = "https://api.github.com"
 USER_AGENT = "SiverKing-VPN_Airport-mirror/1.0 (+https://github.com/SiverKing/VPN_Airport)"
 BADGE_BASE = "https://img.shields.io/badge/"
 
-# Release 正文里表格的行顺序（照着上游 FlClash 的样式：Android / Windows / macOS / Linux）
-OS_ORDER = ("android", "windows", "macos", "linux")
+# Release 正文里表格的行顺序
+OS_ORDER = ("android", "windows", "macos", "ios", "linux")
 # 转置表格的表头顺序（一行一个软件，列是平台，最省纵向空间）
-TABLE_OS = ("windows", "macos", "android", "linux")
-OS_LABELS = {"android": "Android", "windows": "Windows", "macos": "macOS", "linux": "Linux"}
+TABLE_OS = ("windows", "macos", "ios", "android", "linux")
+OS_LABELS = {"android": "Android", "windows": "Windows", "macos": "macOS", "ios": "iOS", "linux": "Linux"}
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_CONFIG = REPO_ROOT / ".github" / "sync-config.json"
@@ -199,14 +199,23 @@ def load_config(path: Path) -> dict:
             raise ConfigError(f"{app['key']}: targets 需要是非空数组")
         target_keys: set[str] = set()
         for target in targets:
-            for field in ("key", "os", "badge", "match"):
+            for field in ("key", "os", "badge"):
                 if not target.get(field):
                     raise ConfigError(f"{app['key']}: 每个 target 都需要 {field} 字段: {target}")
+            # 目标分两种：可下载的（match 正则）和跳转链接（store_url，例如 App Store）
+            if not target.get("match") and not target.get("store_url"):
+                raise ConfigError(
+                    f"{app['key']}/{target['key']}: 需要 match（下载正则）或 store_url（跳转链接）之一"
+                )
+            if target.get("store_url") and target["os"] in {item for item in OS_ORDER if item != "ios"}:
+                raise ConfigError(f"{app['key']}/{target['key']}: store_url 目前只用于 ios 平台")
             if target["os"] not in OS_LABELS:
                 raise ConfigError(f"{app['key']}: 未知平台 {target['os']}（只支持 {'/'.join(OS_ORDER)}）")
             if target["key"] in target_keys:
                 raise ConfigError(f"{app['key']}: 重复的 target key {target['key']}")
             target_keys.add(target["key"])
+        if app.get("version_from_tag") and not isinstance(app["version_from_tag"], str):
+            raise ConfigError(f"{app['key']}: version_from_tag 需要是字符串正则")
 
     config.setdefault("settings", {})
     return config
@@ -232,11 +241,16 @@ def _as_patterns(value) -> list[str]:
 
 
 def pick_targets(app: dict, release: dict, excludes: list[str]) -> dict[str, dict]:
-    """按每个平台目标的正则挑资产；同一个目标匹配到多个直接报错，避免悄悄选错。"""
+    """按每个平台目标的正则挑资产；同一个目标匹配到多个直接报错，避免悄悄选错。
+
+    只有带 match 的「可下载目标」参与挑包；store_url 目标（如 App Store）不下载任何文件。
+    """
     assets = [item for item in (release.get("assets") or []) if isinstance(item, dict) and item.get("name")]
     app_excludes = [str(pattern) for pattern in (app.get("exclude") or [])]
     selected: dict[str, dict] = {}
     for target in app["targets"]:
+        if not target.get("match"):
+            continue
         patterns = _as_patterns(target["match"])
         matches = []
         for asset in assets:
@@ -297,6 +311,16 @@ def strip_version_prefix(tag: str) -> str:
     return re.sub(r"^[vV]", "", tag.strip())
 
 
+def display_version(tag: str, app: dict) -> str:
+    """展示用版本号；app.version_from_tag 可以先从 tag 里截出干净的版本（如 1.0.31.1703 -> 1.0.31）。"""
+    pattern = app.get("version_from_tag")
+    if pattern:
+        match = re.search(pattern, tag)
+        if match:
+            return match.group(1) if match.groups() else match.group(0)
+    return strip_version_prefix(tag)
+
+
 # --------------------------------------------------------------------------- #
 # 生成 Release 正文（HTML 表格 + shields.io 徽章，照抄上游 FlClash 的样式）
 # --------------------------------------------------------------------------- #
@@ -347,10 +371,17 @@ def render_body(
         mark = "<b>[新]</b> " if entry.get("reasons") else ""
         cells = []
         for os_key in TABLE_OS:
-            badges = [
-                f'<a href="{base}/{target["name"]}"><img src="{BADGE_BASE}{target["badge"]}"></a>'
-                for target in targets_by_os.get(os_key, [])
-            ]
+            badges = []
+            for target in targets_by_os.get(os_key, []):
+                if target.get("store_url"):
+                    # iOS 这类目标不放直链，只放商店跳转
+                    badges.append(
+                        f'<a href="{target["store_url"]}"><img src="{BADGE_BASE}{target["badge"]}" alt="App Store"></a>'
+                    )
+                elif target.get("name"):
+                    badges.append(
+                        f'<a href="{base}/{target["name"]}"><img src="{BADGE_BASE}{target["badge"]}"></a>'
+                    )
             cells.append("<td>" + "&#160;".join(badges) + "</td>")
         lines.append(
             f'        <tr><td>{mark}<a href="{name_url}">{entry["name"]} {entry["version"]}</a></td>'
@@ -583,7 +614,9 @@ def main(argv: list[str] | None = None) -> int:
         if skipped:
             print(f"  ! {name}: 跳过 {len(skipped)} 个预发布版本（{', '.join(skipped[:3])}），使用 {tag}")
         selected = pick_targets(app, release, excludes)
-        if not selected:
+        download_targets = [target for target in app["targets"] if target.get("match")]
+        store_targets = [target for target in app["targets"] if target.get("store_url")]
+        if not selected and not store_targets:
             actual = sorted(
                 item["name"] for item in (release.get("assets") or []) if isinstance(item, dict) and item.get("name")
             )
@@ -592,7 +625,9 @@ def main(argv: list[str] | None = None) -> int:
                 f"  上游当前资产: {', '.join(actual[:20])}{' …' if len(actual) > 20 else ''}\n"
                 f"  请更新 .github/sync-config.json 里 {key} 的 match 正则"
             )
-        missing_targets = [target for target in app["targets"] if target["key"] not in selected]
+        missing_targets = [
+            target for target in download_targets if target["key"] not in selected
+        ]
         missing = [target["key"] for target in missing_targets]
         missing_os = sorted({target["os"] for target in missing_targets}, key=OS_ORDER.index)
         if missing:
@@ -600,19 +635,23 @@ def main(argv: list[str] | None = None) -> int:
         reasons = diff_app(state["apps"].get(key), tag, selected)
         targets_display = [
             {**target, "name": selected[target["key"]]["name"]}
-            for target in app["targets"]
+            for target in download_targets
             if target["key"] in selected
-        ]
+        ] + [dict(target) for target in store_targets]
         entry = {
             "key": key,
             "name": name,
             "repo": upstream,
             "tag": tag,
-            "version": strip_version_prefix(tag),
+            "version": display_version(tag, app),
             "html_url": release.get("html_url")
             or f"https://github.com/{upstream}/releases/tag/{tag}",
             "targets": targets_display,
-            "assets": {selected[target["key"]]["name"]: selected[target["key"]] for target in app["targets"] if target["key"] in selected},
+            "assets": {
+                selected[target["key"]]["name"]: selected[target["key"]]
+                for target in download_targets
+                if target["key"] in selected
+            },
             "missing": missing,
             "missing_os": missing_os,
             "reasons": reasons,
@@ -620,7 +659,13 @@ def main(argv: list[str] | None = None) -> int:
         entries.append(entry)
         if reasons and check_this:
             updated.append(entry)
-        detail = ", ".join(f"{target['key']}={selected[target['key']]['name']}" for target in app["targets"] if target["key"] in selected)
+        detail = ", ".join(
+            f"{target['key']}={selected[target['key']]['name']}"
+            for target in download_targets
+            if target["key"] in selected
+        )
+        if store_targets:
+            detail = (detail + "  " if detail else "") + f"商店链接={len(store_targets)} 个"
         print(f"  {name:<12} {tag:<10} {len(selected)} 个文件  {detail}")
         report.append(
             f"{'**有更新**' if reasons and check_this else '无变化'}  \u00b7  {name} `{tag}`"
@@ -668,7 +713,7 @@ def main(argv: list[str] | None = None) -> int:
         [str(item) for item in (config.get("source_order") or [])],
         checksums=checksums,
     )
-    total_files = sum(len(entry["targets"]) for entry in entries)
+    total_files = sum(len(entry["assets"]) for entry in entries)
     total_bytes = sum(int(asset.get("size") or 0) for entry in entries for asset in entry["assets"].values())
     print(f"\n准备发布 {tag}，共 {total_files} 个文件，约 {total_bytes / 1073741824:.2f} GB。")
     print("=" * 70)
@@ -694,7 +739,12 @@ def main(argv: list[str] | None = None) -> int:
     created = False
     published = False
     workdir = Path(tempfile.mkdtemp(prefix="sync-upstreams-"))
-    files = [(entry, target, entry["assets"][target["name"]]) for entry in entries for target in entry["targets"]]
+    files = [
+        (entry, target, entry["assets"][target["name"]])
+        for entry in entries
+        for target in entry["targets"]
+        if target.get("name") and target["name"] in entry["assets"]
+    ]
     try:
         body_file = workdir / "release-body.md"
         body_file.write_text(body, encoding="utf-8")
@@ -743,6 +793,7 @@ def main(argv: list[str] | None = None) -> int:
         merged.update({
             target["key"]: fingerprint(entry["assets"][target["name"]])
             for target in entry["targets"]
+            if target.get("name") and target["name"] in entry["assets"]
         })
         state["apps"][entry["key"]] = {
             "tag": entry["tag"],

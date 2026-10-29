@@ -48,6 +48,8 @@ BADGE_BASE = "https://img.shields.io/badge/"
 
 # Release 正文里表格的行顺序（照着上游 FlClash 的样式：Android / Windows / macOS / Linux）
 OS_ORDER = ("android", "windows", "macos", "linux")
+# 转置表格的表头顺序（一行一个软件，列是平台，最省纵向空间）
+TABLE_OS = ("windows", "macos", "android", "linux")
 OS_LABELS = {"android": "Android", "windows": "Windows", "macos": "macOS", "linux": "Linux"}
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -306,57 +308,58 @@ def render_body(
     *,
     checksums: bool,
 ) -> str:
+    """一张转置的表格：表头是各平台，一行一个软件，徽章横向排列（最省纵向空间）。"""
     base = f"https://github.com/{repo}/releases/download/{tag}"
     versions = " · ".join(f"{entry['name']} {entry['version']}" for entry in entries)
     lines = [
         "# 软件备份",
         "",
-        f"> 点击下面表格里的图标直接下载（全部为上游原版安装包，保持原始文件名）。",
+        "> 点图标直接下载（全部为上游原版安装包，保持原始文件名）；点软件名看上游更新日志。",
         f"> 本次包含：{versions}",
         "",
         "## 直链下载",
         "",
+        '<div align=left>',
+        '<table>',
+        '    <thead align=left>',
+        '        <tr><th>软件</th>'
+        + "".join(f"<th>{OS_LABELS[os_key]}</th>" for os_key in TABLE_OS)
+        + "</tr>",
+        '    </thead>',
+        '    <tbody align=left>',
     ]
 
     for entry in entries:
-        targets_by_os: dict[str, list[dict]] = {os_key: [] for os_key in OS_ORDER}
+        targets_by_os: dict[str, list[dict]] = {}
         for target in entry["targets"]:
-            targets_by_os[target["os"]].append(target)
-        lines.append(f"### {entry['name']} {entry['version']}")
-        lines.append("")
-        lines.append('<div align=left>')
-        lines.append('<table>')
-        lines.append('    <thead align=left>')
-        lines.append('        <tr><th>OS</th><th>Download</th></tr>')
-        lines.append('    </thead>')
-        lines.append('    <tbody align=left>')
-        for os_key in OS_ORDER:
-            cells = [
+            targets_by_os.setdefault(target["os"], []).append(target)
+        name_url = entry.get("html_url") or f"https://github.com/{entry['repo']}/releases"
+        cells = []
+        for os_key in TABLE_OS:
+            badges = [
                 f'<a href="{base}/{target["name"]}"><img src="{BADGE_BASE}{target["badge"]}"></a>'
-                for target in targets_by_os[os_key]
-                if target.get("name")
+                for target in targets_by_os.get(os_key, [])
             ]
-            if not cells:
-                continue
-            lines.append(f'        <tr><td>{OS_LABELS[os_key]}</td><td>')
-            for index, cell in enumerate(cells):
-                suffix = "" if index == len(cells) - 1 else "<br>"
-                lines.append(f"                {cell}{suffix}")
-            lines.append('        </td></tr>')
-        lines.append('    </tbody>')
-        lines.append('</table>')
-        lines.append('</div>')
-        lines.append("")
+            cells.append("<td>" + "&#160;".join(badges) + "</td>")
+        lines.append(
+            f'        <tr><td><a href="{name_url}">{entry["name"]} {entry["version"]}</a></td>'
+            + "".join(cells)
+            + "</tr>"
+        )
 
-        notes = []
+    lines.extend(['    </tbody>', '</table>', '</div>', ""])
+
+    notes = []
+    for entry in entries:
         missing_os = sorted(entry.get("missing_os") or [], key=OS_ORDER.index)
         if missing_os:
-            notes.append("本次上游未提供 " + "、".join(OS_LABELS[item] for item in missing_os) + " 安装包")
-        footer = f"[上游更新日志]({entry.get('html_url') or 'https://github.com/' + entry['repo'] + '/releases'})"
-        footer += f" · [上游仓库](https://github.com/{entry['repo']}/releases)"
-        lines.append(footer + "".join(f" · {note}" for note in notes))
-        lines.append("")
-        lines.append("---")
+            notes.append(
+                f"> {entry['name']}：本次上游未提供 "
+                + "、".join(OS_LABELS[item] for item in missing_os)
+                + " 安装包"
+            )
+    if notes:
+        lines.extend(notes)
         lines.append("")
 
     lines.append("## 校验")
@@ -522,6 +525,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--dry-run", action="store_true", help="只输出计划，不下载不上传")
     parser.add_argument("--force", action="store_true", help="忽略更新数量阈值，直接发一个 Release")
     parser.add_argument("--only", default=None, help="逗号分隔的 app key，只把这些软件计入『有更新』的统计")
+    parser.add_argument(
+        "--tag",
+        default=None,
+        help="覆盖要生成的 tag（仅用于重新生成/预览某个已有 Release 的正文，需配合 --dry-run）",
+    )
     args = parser.parse_args(argv)
 
     config = load_config(args.config)
@@ -641,7 +649,7 @@ def main(argv: list[str] | None = None) -> int:
     existing_tags.update(
         str(item["tag_name"]) for item in own_releases if item.get("tag_name")
     )
-    tag = choose_tag(now, existing_tags, prefix)
+    tag = args.tag or choose_tag(now, existing_tags, prefix)
     body = render_body(
         tag,
         repo,

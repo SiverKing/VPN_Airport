@@ -319,10 +319,10 @@ def render_body(
     ]
     if updated:
         lines.append(
-            f"> 🆕 **本次更新（{len(updated)} 个）**：" + " · ".join(f"**{item}**" for item in updated)
+            f"> **本次更新（{len(updated)} 个）**：" + " · ".join(f"**{item}**" for item in updated)
         )
     if unchanged:
-        lines.append(f"> ⏸ 版本未变（{len(unchanged)} 个，和上一个 Release 相同）：" + " · ".join(unchanged))
+        lines.append(f"> 版本未变（{len(unchanged)} 个，和上一个 Release 相同）：" + " · ".join(unchanged))
     if not updated:
         lines.append("> 本次没有检测到上游新版本（强制/兜底发布），全部沿用上一个 Release 的版本。")
     lines += [
@@ -344,7 +344,7 @@ def render_body(
         for target in entry["targets"]:
             targets_by_os.setdefault(target["os"], []).append(target)
         name_url = entry.get("html_url") or f"https://github.com/{entry['repo']}/releases"
-        mark = "🆕 " if entry.get("reasons") else ""
+        mark = "**[新]** " if entry.get("reasons") else ""
         cells = []
         for os_key in TABLE_OS:
             badges = [

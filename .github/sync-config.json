@@ -1,8 +1,8 @@
 {
   "$comment": [
     "自动同步配置。apps 的顺序决定 Release 里各软件区块的顺序；source_order 决定『原始链接』的顺序。",
-    "每个 app 的 targets 是「平台目标」列表：os 取 android/windows/macos/linux，match 是对上游资产文件名做 fullmatch 的正则，",
-    "badge 是 shields.io 徽章的路径（https://img.shields.io/badge/<badge>），换颜色/图标直接改这里。",
+    "每个 app 的 targets 是「平台目标」列表：os 取 windows/macos/ios/android/linux；match 是对上游资产文件名做 fullmatch 的正则，",
+    "store_url 是跳转类目标（例如 App Store），不下载文件、只放链接；badge 是 shields.io 徽章的路径（https://img.shields.io/badge/<badge>）。",
     "可选字段：include_prerelease(是否跟随预发布版)、exclude(额外排除正则)。",
     "settings.min_updated_apps_to_release：有更新的上游数量达到这个值才发 Release（3 = 大于两个）。",
     "settings.max_days_between_releases：兜底，距上次发布超过这么多天即使更新不够也发（0 = 关闭）。"
@@ -135,6 +135,18 @@
         {"key": "android-x64", "os": "android", "badge": "APK-x64-96ed89.svg?logo=android",
          "match": "^v2rayNG_[0-9][^_]*_x86_64\\.apk$"}
       ]
+    },
+    {
+      "key": "clashmi",
+      "name": "Clash Mi",
+      "repo": "KaringX/clashmi",
+      "version_from_tag": "^v?(\\d+\\.\\d+\\.\\d+)",
+      "_note": "iOS 客户端：App Store 分发，不在本仓库放直链，只放跳转链接；版本取上游 stable tag 的前三段（1.0.31.1703 -> 1.0.31）。",
+      "targets": [
+        {"key": "ios-appstore", "os": "ios",
+         "badge": "AppStore-%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD-0D96F6.svg?logo=appstore",
+         "store_url": "https://apps.apple.com/us/app/clash-mi/id6744321968"}
+      ]
     }
   ],
   "source_order": [
@@ -143,6 +155,7 @@
     "clashmeta",
     "flclash",
     "v2rayng",
-    "v2rayn"
+    "v2rayn",
+    "clashmi"
   ]
 }

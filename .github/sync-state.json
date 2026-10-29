@@ -72,6 +72,11 @@
         }
       }
     },
+    "clashmi": {
+      "repo": "KaringX/clashmi",
+      "tag": "v1.0.31.1703",
+      "targets": {}
+    },
     "clashmeta": {
       "repo": "MetaCubeX/ClashMetaForAndroid",
       "tag": "v2.11.36",

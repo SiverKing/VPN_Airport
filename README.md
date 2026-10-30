@@ -21,7 +21,7 @@ Release 正文里每个软件都有一张 `OS / Download` 表格，点图标即�
 | v2rayN | [2dust/v2rayN](https://github.com/2dust/v2rayN/releases) | Windows（安装版 / 便携版）· macOS（Apple Silicon / Intel）· Linux（deb / rpm） |
 | ClashMeta | [MetaCubeX/ClashMetaForAndroid](https://github.com/MetaCubeX/ClashMetaForAndroid/releases) | Android（arm64 / armv7 / x64） |
 | v2rayNG | [2dust/v2rayNG](https://github.com/2dust/v2rayNG/releases) | Android（arm64 / armv7 / x64） |
-| Clash Mi | [KaringX/clashmi](https://github.com/KaringX/clashmi/releases) | **iOS**（App Store 跳转链接，不放直链） |
+| Karing | [KaringX/karing](https://github.com/KaringX/karing/releases) | **Windows（安装版 / 便携版）· macOS（Universal）· Android（arm64 / armv7 / arm）· Linux（AppImage / deb / rpm）· iOS（美区 App Store 跳转链接，不放直链）** |
 
 ### 工作原理
 
@@ -47,13 +47,13 @@ Release 正文里每个软件都有一张 `OS / Download` 表格，点图标即�
   | `targets[].badge` | 每个 app | shields.io 徽章，如 `Setup-x64-2d7d9a.svg?logo=windows`，换颜色/图标改这里 |
   | `exclude` | 每个 app | 额外排除的正则（如 `win7-`、`fixed_webview2`、`-alpha`） |
   | `include_prerelease` | 每个 app | 是否跟随预发布版。默认不跟（v2rayNG 例外，见下） |
-  | `version_from_tag` | 每个 app | 可选的版本号截取正则（Clash Mi 的 `1.0.31.1703` → 显示 `1.0.31`） |
+  | `version_from_tag` | 每个 app | 可选的版本号截取正则（Karing 的 `1.2.25.2802` → 显示 `1.2.25`） |
   | `min_updated_apps_to_release` | settings | 多少个软件有更新才发版，默认 3 |
   | `max_days_between_releases` | settings | 兜底天数，默认 30，`0` 为关闭 |
   | `checksums` | settings | 是否额外上传 `SHA256SUMS.txt`，默认开 |
 
-- **iOS 列**：不在本仓库镜像安装包（App Store 应用无法镜像），只放 App Store 跳转徽章；
-  想再加别的 iOS 客户端，照 Clash Mi 那样写一个只有 `store_url`、没有 `match` 的目标即可。
+- **iOS 列**：App Store 应用无法镜像，只放美区 App Store 跳转徽章（目前是 Karing）；
+  想再加别的 iOS 客户端，照 Karing 那样写一个只有 `store_url`、没有 `match` 的目标即可。
 
 - **注意 v2rayNG**：上游长期把新版本标成 prerelease（2.3.12 / 2.3.13 / 2.3.14 全是），
   只跟正式版会一直停在 2.3.11，所以它的 `include_prerelease` 设为 `true`；只想要正式版就改回 `false`。

@@ -149,6 +149,57 @@
         }
       }
     },
+    "karing": {
+      "repo": "KaringX/karing",
+      "tag": "v1.2.25.2802",
+      "targets": {
+        "android-arm": {
+          "name": "karing_1.2.25.2802_android_arm.apk",
+          "sha256": "670595d787be699f960dd71e1a3eab55cdf1d4d17522851d793e49f1c6d09158",
+          "size": 94359984
+        },
+        "android-armv7": {
+          "name": "karing_1.2.25.2802_android_armeabi-v7a.apk",
+          "sha256": "bfb122227eac0e31cae35f3e91f1bbc7497348cd0bc277b6a710e48e3ba49111",
+          "size": 55608414
+        },
+        "android-armv8": {
+          "name": "karing_1.2.25.2802_android_arm64-v8a.apk",
+          "sha256": "b02cd70ce575942967467b56df20c8cb084bb7519f64a67567d87ff2e39458a3",
+          "size": 55451158
+        },
+        "linux-appimage": {
+          "name": "karing_1.2.25.2802_linux_amd64.AppImage",
+          "sha256": "4cc0d6426f11d9cdf885aa970ac4a9a8d4924240344a13de951b4a9cc5462b90",
+          "size": 67418616
+        },
+        "linux-deb": {
+          "name": "karing_1.2.25.2802_linux_amd64.deb",
+          "sha256": "bdadb2c7a8fbe2c7b8f18c95e5e17e3777a6a87b1e91fd7b529b3fac26b72891",
+          "size": 45185872
+        },
+        "linux-rpm": {
+          "name": "karing_1.2.25.2802_linux_amd64.rpm",
+          "sha256": "ebddef896d81a81f2a66313e7c5c9579d9214b05f022195b503ad5339eeacc83",
+          "size": 55972278
+        },
+        "macos-universal": {
+          "name": "karing_1.2.25.2802_macos_universal.dmg",
+          "sha256": "90aba8e17bdf15564710e84e6328ce9c9d3edcf45c79eccc1d33995d50c2f458",
+          "size": 103163875
+        },
+        "windows-portable": {
+          "name": "karing_1.2.25.2802_windows_x64.zip",
+          "sha256": "5cb60cd37100ea5e172dbda8642aa7a37e3b30ca26ba80f764aa73b742ad8843",
+          "size": 67456455
+        },
+        "windows-setup": {
+          "name": "karing_1.2.25.2802_windows_x64.exe",
+          "sha256": "b94ac8b8ce4bcfd6229c81d684367ac546434dab790dc4be148696c6ca24018f",
+          "size": 46800210
+        }
+      }
+    },
     "v2rayn": {
       "repo": "2dust/v2rayN",
       "tag": "7.25.6",
@@ -207,7 +258,7 @@
       }
     }
   },
-  "last_release_tag": "v20261029",
+  "last_release_tag": "v20261030",
   "schema": 2,
-  "updated_at": "2026-10-29T11:58:50Z"
+  "updated_at": "2026-10-30T03:14:02Z"
 }

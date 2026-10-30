@@ -125,24 +125,32 @@ def api_json(path: str, token: str | None, *, method: str = "GET", data: dict | 
 
 
 def resolve_release(token: str | None, repo: str, include_prerelease: bool) -> tuple[dict, list[str]]:
-    """取上游"最新"release，返回 (release, 被跳过的预发布 tag 列表)。
+    """取上游"最新"release，返回 (release, 附加提示列表)。
 
-    不用 /releases/latest：它会静默跳过 prerelease（有些项目连续多个版本都标 prerelease，
-    会导致镜像悄悄停在旧版本）。这里直接看 releases 列表，并显式记录被跳过的预发布版本。
+    - 默认（只跟稳定版）：用 /releases/latest，它天然跳过 prerelease/draft，
+      而且有些项目（如 Karing）最近 N 个全是 prerelease，用列表分页反而找不到稳定版；
+    - include_prerelease=True：看 releases 列表，取第一个非 draft（含 prerelease）。
     """
+    if not include_prerelease:
+        try:
+            latest = api_json(f"/repos/{repo}/releases/latest", token)
+            if isinstance(latest, dict) and latest.get("tag_name") and not latest.get("prerelease"):
+                return latest, []
+        except ApiError as exc:
+            if exc.status != 404:
+                raise
+
     listed = api_json(f"/repos/{repo}/releases?per_page=15", token) or []
     if isinstance(listed, dict):
         listed = [listed]
-    skipped: list[str] = []
     for candidate in listed:
         if not isinstance(candidate, dict) or not candidate.get("tag_name"):
             continue
         if candidate.get("draft"):
             continue
         if candidate.get("prerelease") and not include_prerelease:
-            skipped.append(str(candidate["tag_name"]))
             continue
-        return candidate, skipped
+        return candidate, []
     raise SyncError(f"{repo}: 找不到可用的 release（可能全是 draft，或全是 prerelease）")
 
 

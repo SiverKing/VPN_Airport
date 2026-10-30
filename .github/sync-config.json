@@ -137,15 +137,33 @@
       ]
     },
     {
-      "key": "clashmi",
-      "name": "Clash Mi",
-      "repo": "KaringX/clashmi",
+      "key": "karing",
+      "name": "Karing",
+      "repo": "KaringX/karing",
       "version_from_tag": "^v?(\\d+\\.\\d+\\.\\d+)",
-      "_note": "iOS 客户端：App Store 分发，不在本仓库放直链，只放跳转链接；版本取上游 stable tag 的前三段（1.0.31.1703 -> 1.0.31）。",
+      "_note": "iOS 只放美区 App Store 链接；其他平台镜像上游 stable release 的安装包。上游几乎每天都有 prerelease 构建，这里只跟 stable（和 App Store 版本一致）。",
       "targets": [
+        {"key": "windows-setup", "os": "windows", "badge": "Setup-x64-2d7d9a.svg?logo=windows",
+         "match": "^karing_[^_]+_windows_x64\\.exe$"},
+        {"key": "windows-portable", "os": "windows", "badge": "Portable-x64-67b7d1.svg?logo=windows",
+         "match": "^karing_[^_]+_windows_x64\\.zip$"},
+        {"key": "macos-universal", "os": "macos", "badge": "DMG-Universal-%23000000.svg?logo=apple",
+         "match": "^karing_[^_]+_macos_universal\\.dmg$"},
+        {"key": "android-armv8", "os": "android", "badge": "APK-ARMv8-168039.svg?logo=android",
+         "match": "^karing_[^_]+_android_arm64-v8a\\.apk$"},
+        {"key": "android-armv7", "os": "android", "badge": "APK-ARMv7-45bf55.svg?logo=android",
+         "match": "^karing_[^_]+_android_armeabi-v7a\\.apk$"},
+        {"key": "android-arm", "os": "android", "badge": "APK-ARM-6aa84f.svg?logo=android",
+         "match": "^karing_[^_]+_android_arm\\.apk$"},
+        {"key": "linux-appimage", "os": "linux", "badge": "AppImage-x64-f84e29.svg?logo=linux",
+         "match": "^karing_[^_]+_linux_amd64\\.AppImage$"},
+        {"key": "linux-deb", "os": "linux", "badge": "DebPackage-x64-FF9966.svg?logo=debian",
+         "match": "^karing_[^_]+_linux_amd64\\.deb$"},
+        {"key": "linux-rpm", "os": "linux", "badge": "RpmPackage-x64-F1B42F.svg?logo=redhat",
+         "match": "^karing_[^_]+_linux_amd64\\.rpm$"},
         {"key": "ios-appstore", "os": "ios",
          "badge": "AppStore-%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD-0D96F6.svg?logo=appstore",
-         "store_url": "https://apps.apple.com/us/app/clash-mi/id6744321968"}
+         "store_url": "https://apps.apple.com/us/app/karing/id6472431552"}
       ]
     }
   ],
@@ -156,6 +174,6 @@
     "flclash",
     "v2rayng",
     "v2rayn",
-    "clashmi"
+    "karing"
   ]
 }

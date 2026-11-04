@@ -11,7 +11,7 @@
     "timezone": "Asia/Shanghai",
     "tag_prefix": "v",
     "include_prerelease": false,
-    "min_updated_apps_to_release": 3,
+    "min_updated_apps_to_release": 2,
     "min_days_between_releases": 0,
     "max_days_between_releases": 30,
     "checksums": true,

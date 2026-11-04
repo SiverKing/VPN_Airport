@@ -43,32 +43,32 @@
     },
     "clash-verge": {
       "repo": "clash-verge-rev/clash-verge-rev",
-      "tag": "v2.5.8",
+      "tag": "v2.5.10",
       "targets": {
         "linux-deb": {
-          "name": "Clash.Verge_2.5.8_amd64.deb",
-          "sha256": "ceeb7578c6f030b33ddf6346486db24013cf4557cc340de5f312f98a924a8546",
-          "size": 104179124
+          "name": "Clash.Verge_2.5.10_amd64.deb",
+          "sha256": "add8564811ba4d2305da443288d23a26c5ed19674b676a0bb58b99ec4f7d13cf",
+          "size": 103408266
         },
         "linux-rpm": {
-          "name": "Clash.Verge-2.5.8-1.x86_64.rpm",
-          "sha256": "ad378ea9fb12ebae49500fcddb0435fd67abef79d828b654368e0f67b5785c2e",
-          "size": 104176465
+          "name": "Clash.Verge-2.5.10-1.x86_64.rpm",
+          "sha256": "8ae1e802da51fd56e3dcaec694fa17bc6d2c5aeaf13521f4492c0ec5a1d109aa",
+          "size": 103401106
         },
         "macos-arm": {
-          "name": "Clash.Verge_2.5.8_aarch64.dmg",
-          "sha256": "1f7c3a73970f103fc3cb9944744772fa1540160f05911e033ffc57f7c9f860ec",
-          "size": 81825361
+          "name": "Clash.Verge_2.5.10_aarch64.dmg",
+          "sha256": "40d4a7da4543d75f573a5cfcc31543b0b4bf7e02caa122a9ca50654859585839",
+          "size": 80769307
         },
         "macos-intel": {
-          "name": "Clash.Verge_2.5.8_x64.dmg",
-          "sha256": "8cdf7a01a1c548a081339aff21b2599d60f67730d05485e90831f4bbdbf3b093",
-          "size": 87523387
+          "name": "Clash.Verge_2.5.10_x64.dmg",
+          "sha256": "b1d6938680f3e411b5961e56591faaa92c95e9676f54ebfdfa98b7eab374023e",
+          "size": 86532364
         },
         "windows-setup": {
-          "name": "Clash.Verge_2.5.8_x64-setup.exe",
-          "sha256": "821c0f5957f84c8f7d14532044840e8280d708af24a6a143db360b49bd1e7302",
-          "size": 60230483
+          "name": "Clash.Verge_2.5.10_x64-setup.exe",
+          "sha256": "929da9303b643b80ce309ab29f618e37a5562f515d1fa55ebf5b86c822504450",
+          "size": 60045702
         }
       }
     },
@@ -238,27 +238,27 @@
     },
     "v2rayng": {
       "repo": "2dust/v2rayNG",
-      "tag": "2.3.14",
+      "tag": "2.3.15",
       "targets": {
         "android-armv7": {
-          "name": "v2rayNG_2.3.14_armeabi-v7a.apk",
-          "sha256": "02bf365b9445d3285e96ef04a4d2a8e526e340590dd05d94b12e689cf09a5a4a",
-          "size": 33008790
+          "name": "v2rayNG_2.3.15_armeabi-v7a.apk",
+          "sha256": "6380a1d5c8b604b10390d4b59591da6df7345ea981b73500a5a2773e1aab156a",
+          "size": 33004314
         },
         "android-armv8": {
-          "name": "v2rayNG_2.3.14_arm64-v8a.apk",
-          "sha256": "e574d20ae4f2962c225785c31480b1c82a2a0dae1b7fbda5bf7fb510d8c3a05b",
-          "size": 32470932
+          "name": "v2rayNG_2.3.15_arm64-v8a.apk",
+          "sha256": "ec53590f042ebb3998169506164ca72eeb84de938d6ed8e888d3b10031f548e3",
+          "size": 32462468
         },
         "android-x64": {
-          "name": "v2rayNG_2.3.14_x86_64.apk",
-          "sha256": "2e9d0f17b032787cc406534fb90a91e7a3a77275b32afb3ef84a88e4cf58d0df",
-          "size": 33518759
+          "name": "v2rayNG_2.3.15_x86_64.apk",
+          "sha256": "6c5276597d913c1330334b99d03b273201834cf475ab6aa709f7413097613bd5",
+          "size": 33514283
         }
       }
     }
   },
-  "last_release_tag": "v20261030",
+  "last_release_tag": "v20261104",
   "schema": 2,
-  "updated_at": "2026-10-30T03:14:02Z"
+  "updated_at": "2026-11-04T05:37:50Z"
 }

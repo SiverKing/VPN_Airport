@@ -140,8 +140,8 @@
       "key": "karing",
       "name": "Karing",
       "repo": "KaringX/karing",
-      "version_from_tag": "^v?(\\d+\\.\\d+\\.\\d+)",
-      "_note": "iOS 只放美区 App Store 链接；其他平台镜像上游 stable release 的安装包。上游几乎每天都有 prerelease 构建，这里只跟 stable（和 App Store 版本一致）。",
+      "compare_version_from_tag": "^v?(\\d+\\.\\d+\\.\\d+)",
+      "_note": "iOS 只放美区 App Store 链接；其他平台镜像上游 stable release 的安装包。Karing 的 stable 版本几乎每天都在重打（1.2.26.2929 → .2930，只有第 4 段构建号变），所以用 compare_version_from_tag 按前三段比较：构建号变化不算更新、不触发发版；显示仍然用完整的 4 段版本。",
       "targets": [
         {"key": "windows-setup", "os": "windows", "badge": "Setup-x64-2d7d9a.svg?logo=windows",
          "match": "^karing_[^_]+_windows_x64\\.exe$"},

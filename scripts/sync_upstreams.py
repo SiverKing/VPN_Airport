@@ -224,6 +224,8 @@ def load_config(path: Path) -> dict:
             target_keys.add(target["key"])
         if app.get("version_from_tag") and not isinstance(app["version_from_tag"], str):
             raise ConfigError(f"{app['key']}: version_from_tag 需要是字符串正则")
+        if app.get("compare_version_from_tag") and not isinstance(app["compare_version_from_tag"], str):
+            raise ConfigError(f"{app['key']}: compare_version_from_tag 需要是字符串正则")
 
     config.setdefault("settings", {})
     return config
@@ -288,10 +290,43 @@ def fingerprint(asset: dict) -> dict:
     }
 
 
-def diff_app(previous: dict | None, tag: str, selected: dict[str, dict]) -> list[str]:
+def extract_version(tag: str, pattern: str | None) -> str | None:
+    """按正则从 tag 里取版本号；pattern 为空或不匹配时返回 None。"""
+    if not pattern:
+        return None
+    match = re.search(pattern, tag.strip())
+    if not match:
+        return None
+    return match.group(1) if match.groups() else match.group(0)
+
+
+def is_build_only_bump(previous: dict | None, tag: str, compare_pattern: str | None) -> bool:
+    """判断是否只是「构建号」变了（例如 Karing 1.2.26.2929 -> 1.2.26.2930）。
+
+    compare_version_from_tag 用较短的版本（如 1.2.26）来比较：相同就认为只是重新构建，
+    不算一次真正的版本更新，避免上游每天重打一个 stable 包把自动发版带偏。
+    """
+    if not previous or not compare_pattern:
+        return False
+    previous_tag = str(previous.get("tag") or "")
+    if not previous_tag or previous_tag == tag:
+        return False
+    old = extract_version(previous_tag, compare_pattern)
+    new = extract_version(tag, compare_pattern)
+    return old is not None and old == new
+
+
+def diff_app(
+    previous: dict | None,
+    tag: str,
+    selected: dict[str, dict],
+    compare_pattern: str | None = None,
+) -> list[str]:
     """返回变化原因列表；空列表 = 没有变化。缺失的目标不算变化（上游偶尔缺包）。"""
     if not previous:
         return ["首次同步"]
+    if is_build_only_bump(previous, tag, compare_pattern):
+        return []
     reasons: list[str] = []
     if previous.get("tag") != tag:
         reasons.append(f"{previous.get('tag') or '?'} → {tag}")
@@ -640,7 +675,13 @@ def main(argv: list[str] | None = None) -> int:
         missing_os = sorted({target["os"] for target in missing_targets}, key=OS_ORDER.index)
         if missing:
             print(f"  ! {name}@{tag}: 缺少 {', '.join(missing)}（本次跳过这些平台）")
-        reasons = diff_app(state["apps"].get(key), tag, selected)
+        compare_pattern = app.get("compare_version_from_tag")
+        reasons = diff_app(state["apps"].get(key), tag, selected, compare_pattern)
+        if not reasons and is_build_only_bump(state["apps"].get(key), tag, compare_pattern):
+            print(
+                f"  · {name}: {state['apps'][key]['tag']} → {tag}"
+                f"（仅构建号变化，不计入更新、也不重新发版）"
+            )
         targets_display = [
             {**target, "name": selected[target["key"]]["name"]}
             for target in download_targets

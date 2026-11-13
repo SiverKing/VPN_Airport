@@ -151,52 +151,52 @@
     },
     "karing": {
       "repo": "KaringX/karing",
-      "tag": "v1.2.26.2929",
+      "tag": "v1.2.26.2930",
       "targets": {
         "android-arm": {
-          "name": "karing_1.2.26.2929_android_arm.apk",
-          "sha256": "03c8e8300f5b654c1d4e20397c198a24314f30f5492a0369d1fbc2ac2ec8584b",
-          "size": 105276626
+          "name": "karing_1.2.26.2930_android_arm.apk",
+          "sha256": "539b65288928a148d0b5cab08337fbaa1a750e9fcd80c9e301487877e43b4af8",
+          "size": 105273822
         },
         "android-armv7": {
-          "name": "karing_1.2.26.2929_android_armeabi-v7a.apk",
-          "sha256": "f8588be9507b1088ca48c3e7890bb211c4a0d5232ec6c105ee3e7d23a294c63f",
-          "size": 60572664
+          "name": "karing_1.2.26.2930_android_armeabi-v7a.apk",
+          "sha256": "1fa1f8fb77a893a53745f8da46daeb89aff3bd55b57db12936aa55f444ae4d5f",
+          "size": 60567072
         },
         "android-armv8": {
-          "name": "karing_1.2.26.2929_android_arm64-v8a.apk",
-          "sha256": "9bdf1665658ce2988fbfb1d65e1627a296f931f145afadafa28ecc9f3161b283",
-          "size": 60196428
+          "name": "karing_1.2.26.2930_android_arm64-v8a.apk",
+          "sha256": "1bcd68cfd92cd269dbe3798de701e4a90c3f9b5a88d63db954a237509b808c35",
+          "size": 60199216
         },
         "linux-appimage": {
-          "name": "karing_1.2.26.2929_linux_amd64.AppImage",
-          "sha256": "c12f2557e01c4e7fc5a45794dd490e574ac733a523aed7213d06e0782a62a21c",
-          "size": 114440696
+          "name": "karing_1.2.26.2930_linux_amd64.AppImage",
+          "sha256": "71494d7a5fb75c8547508d7379915d0a621dfd13e40593214869b687698fa695",
+          "size": 73165304
         },
         "linux-deb": {
-          "name": "karing_1.2.26.2929_linux_amd64.deb",
-          "sha256": "4ecbfd04072abdb9fe06523789ea6d75405f13664ff9985afcd3d62e0afb8e60",
-          "size": 86024432
+          "name": "karing_1.2.26.2930_linux_amd64.deb",
+          "sha256": "44034290960fc9063bf09fe6067cb72ae476def84557eb5af95440857e665803",
+          "size": 50422976
         },
         "linux-rpm": {
-          "name": "karing_1.2.26.2929_linux_amd64.rpm",
-          "sha256": "8522f0c4ac5e65080316b4822a3480acf3c896c9ca4bb2fd223c2ae1c1650384",
-          "size": 109754487
+          "name": "karing_1.2.26.2930_linux_amd64.rpm",
+          "sha256": "38f0ba426883b6641feca5b0f72bb9d50f129cbc30d1983fc4184d9aff32765a",
+          "size": 62158118
         },
         "macos-universal": {
-          "name": "karing_1.2.26.2929_macos_universal.dmg",
-          "sha256": "3f0529f4eaca98ed4ec29711405e47eacc22d4564f9395576e60b525953bbf9b",
-          "size": 116870543
+          "name": "karing_1.2.26.2930_macos_universal.dmg",
+          "sha256": "2029d3fd5d3471e724c40a9649967852f648035f2341ef18317caf6af2249d7d",
+          "size": 116860924
         },
         "windows-portable": {
-          "name": "karing_1.2.26.2929_windows_x64.zip",
-          "sha256": "e90600f9e82db36a54db5a0b671ef52665ea3c444107cc3646d1fbf3041156cc",
-          "size": 74991617
+          "name": "karing_1.2.26.2930_windows_x64.zip",
+          "sha256": "47caeade3f707c92263dcb9c5e597092cdbaef491ccb953958e18c72cdb524ca",
+          "size": 74998862
         },
         "windows-setup": {
-          "name": "karing_1.2.26.2929_windows_x64.exe",
-          "sha256": "f30c23f41328fdd1961771ae46912b7337da891db254b380d0de7a2161f8e85e",
-          "size": 52037975
+          "name": "karing_1.2.26.2930_windows_x64.exe",
+          "sha256": "43188363015d8ccadb43d65c29f7141419b5d3407c2741cb398ad185fa45afcf",
+          "size": 52030788
         }
       }
     },
@@ -258,7 +258,7 @@
       }
     }
   },
-  "last_release_tag": "v20261113",
+  "last_release_tag": "v20261113a",
   "schema": 2,
-  "updated_at": "2026-11-13T00:36:55Z"
+  "updated_at": "2026-11-13T11:15:49Z"
 }

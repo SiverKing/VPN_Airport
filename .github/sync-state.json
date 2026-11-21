@@ -2,42 +2,42 @@
   "apps": {
     "clash-party": {
       "repo": "mihomo-party-org/clash-party",
-      "tag": "v2.0.4",
+      "tag": "v2.0.5",
       "targets": {
         "linux-arch": {
-          "name": "clash-party-linux-2.0.4-x64.pkg.tar.zst",
-          "sha256": "c2df7d73ace292d7667e76fd42464c16c464ede58c0b805d86eb9271b10e803b",
-          "size": 244070087
+          "name": "clash-party-linux-2.0.5-x64.pkg.tar.zst",
+          "sha256": "84d16fd30addd0f6aacbc31540d009b0b0b6986d8413eeec47480d7525e023be",
+          "size": 245626266
         },
         "linux-deb": {
-          "name": "clash-party-linux-2.0.4-amd64.deb",
-          "sha256": "33f3b75a8c0ed91c09499c0b9f2e0eb755e5ae13f69d6ffabab713fbb9bbf3a4",
-          "size": 202066144
+          "name": "clash-party-linux-2.0.5-amd64.deb",
+          "sha256": "277a9cd9d41c946dc1a1b52231a6b32d88fd874d041371518f7da02874b4cdc6",
+          "size": 204913880
         },
         "linux-rpm": {
-          "name": "clash-party-linux-2.0.4-x86_64.rpm",
-          "sha256": "59f32ac2819090c25474cc9ec1e32c3f52d91a39ec454036f833fdb726b6e6bc",
-          "size": 166154201
+          "name": "clash-party-linux-2.0.5-x86_64.rpm",
+          "sha256": "915b56227533964a153b25b5ca0d4c3300a4f66bb04802ce373f2110dbc1cd5f",
+          "size": 167849047
         },
         "macos-arm": {
-          "name": "clash-party-macos-2.0.4-arm64.pkg",
-          "sha256": "174b4b19b02151b2ef84517da0b192e834e43fb4c0ca7fe8700363162cabf7e1",
-          "size": 243393267
+          "name": "clash-party-macos-2.0.5-arm64.pkg",
+          "sha256": "3c2c595d7ac7c3df295da6c32ab6b970d31d2aa9c746b489daabc2851114d080",
+          "size": 246082466
         },
         "macos-intel": {
-          "name": "clash-party-macos-2.0.4-x64.pkg",
-          "sha256": "b93a845ecc0eb95da80184e8d3ebb2b94f5d2b9024df7065f9cdf1f23c868432",
-          "size": 261748060
+          "name": "clash-party-macos-2.0.5-x64.pkg",
+          "sha256": "c12c59b82191a151df9e16248c2d3033a3c54b188da96b4aa1ba24c16008f2ca",
+          "size": 264392791
         },
         "windows-portable": {
-          "name": "clash-party-windows-2.0.4-x64-portable.7z",
-          "sha256": "182063a60b9a06535d176742d627f8b8c95a99aae85fc8752c880efee7da5157",
-          "size": 175672213
+          "name": "clash-party-windows-2.0.5-x64-portable.7z",
+          "sha256": "1d06b90dcf7bfd0e75dd97392629e68fc96b3096f1213b4c37cc943d82e666f2",
+          "size": 177057188
         },
         "windows-setup": {
-          "name": "clash-party-windows-2.0.4-x64-setup.exe",
-          "sha256": "f7cac1e588851197833c456a827cb611b6145e76be53dfd0f4df56e214c764d3",
-          "size": 208304471
+          "name": "clash-party-windows-2.0.5-x64-setup.exe",
+          "sha256": "f496eb22f3af1f65e99b447b25d287d3e95d31e7838c4d6e3c3475b41f79c48c",
+          "size": 209864254
         }
       }
     },
@@ -95,47 +95,47 @@
     },
     "flclash": {
       "repo": "chen08209/FlClash",
-      "tag": "v0.9.3",
+      "tag": "v0.9.4",
       "targets": {
         "android-armv7": {
-          "name": "FlClash-0.9.3-android-armeabi-v7a.apk",
-          "sha256": "9d3b19911efdfef303a33229a4caefedfc58d99992d7d23d373d549c36451645",
-          "size": 61004129
+          "name": "FlClash-0.9.4-android-armeabi-v7a.apk",
+          "sha256": "ebda76824a86149bb80ca1ce81f0a7682296e356c8acaf0fb842076b642166a6",
+          "size": 60920111
         },
         "android-armv8": {
-          "name": "FlClash-0.9.3-android-arm64-v8a.apk",
-          "sha256": "700570428bde3a1b316ae7f7e8f10d77f9e23ee8bf8b3f45557362a061fbefb3",
-          "size": 61020873
+          "name": "FlClash-0.9.4-android-arm64-v8a.apk",
+          "sha256": "86fb6f66b5f4d36a3423adeadca625b147da0e782400b6af69aafe58c603a947",
+          "size": 60863675
         },
         "android-x64": {
-          "name": "FlClash-0.9.3-android-x86_64.apk",
-          "sha256": "71884cc9b7bad834608ab5e51cf6f59f1f01074ad7c4e779c40da8958060b81e",
-          "size": 63546347
+          "name": "FlClash-0.9.4-android-x86_64.apk",
+          "sha256": "d064bf1f4fc5902d7e1a1f6b7d90786972fcac92cfed01a89a4954b82afeba65",
+          "size": 63439629
         },
         "linux-appimage": {
-          "name": "FlClash-0.9.3-linux-amd64.AppImage",
-          "sha256": "fe5e7c237f053910ba6c4f22c1af2ceab9736da7e2bdbdd07d0d41b2b2c884e8",
-          "size": 69739712
+          "name": "FlClash-0.9.4-linux-amd64.AppImage",
+          "sha256": "62fee41f01c74ef97508b809a15eec72487f07ac6536bde7a7cf5c60c9373d08",
+          "size": 69264576
         },
         "linux-deb": {
-          "name": "FlClash-0.9.3-linux-amd64.deb",
-          "sha256": "4064254329bb39c6289c743e16e5726ae56b5853e86d9f88e0145e2af032351b",
-          "size": 40482184
+          "name": "FlClash-0.9.4-linux-amd64.deb",
+          "sha256": "72c6b892d7467aefdc67cd8a3b0515fa5a337e88d192d372cda1c21c9d24d47f",
+          "size": 40854652
         },
         "linux-rpm": {
-          "name": "FlClash-0.9.3-linux-amd64.rpm",
-          "sha256": "42fbe1f9e41d9929ed95e869c05e6b5ac4dbb70b12afbaef0d00de2fd4bc4db5",
-          "size": 59835372
+          "name": "FlClash-0.9.4-linux-amd64.rpm",
+          "sha256": "8a8ac9314c4f2d864748a1ebc8a7ef13a847b56c5286640c0e09a51a49552415",
+          "size": 60352134
         },
         "macos-arm": {
-          "name": "FlClash-0.9.3-macos-arm64.dmg",
-          "sha256": "980e9cc3bd47d2090876e5e3c06f774e32a89330d83aa66ac3f8490e39924d9b",
-          "size": 59154614
+          "name": "FlClash-0.9.4-macos-arm64.dmg",
+          "sha256": "db0784e7e5a69fc93da85accf4d8d80812e7e014f2082609da395ba6124195c5",
+          "size": 55625224
         },
         "macos-intel": {
-          "name": "FlClash-0.9.3-macos-amd64.dmg",
-          "sha256": "9738eebec4c8dd017bebb608f2d1e8c209cf5aa97cc4f181783036b66dd3c944",
-          "size": 63032970
+          "name": "FlClash-0.9.4-macos-amd64.dmg",
+          "sha256": "481f742112572a6488a5ec40ddd071283dc59eb4d91da1e399be25acaf79e8eb",
+          "size": 59502497
         },
         "windows-portable": {
           "name": "FlClash-0.9.3-windows-amd64.zip",
@@ -143,60 +143,60 @@
           "size": 68728187
         },
         "windows-setup": {
-          "name": "FlClash-0.9.3-windows-amd64-setup.exe",
-          "sha256": "5754a11b5177fdddf9eee06b5059ed2bcbc467c7058d4ca25541d64b778bdc86",
-          "size": 43277284
+          "name": "FlClash-0.9.4-windows-amd64-setup.exe",
+          "sha256": "77f84fdf24ccb1499e6c0275b713c3a81031f157496e1c5305366184da1ac68a",
+          "size": 43132829
         }
       }
     },
     "karing": {
       "repo": "KaringX/karing",
-      "tag": "v1.2.26.2930",
+      "tag": "v1.2.26.2934",
       "targets": {
         "android-arm": {
-          "name": "karing_1.2.26.2930_android_arm.apk",
-          "sha256": "539b65288928a148d0b5cab08337fbaa1a750e9fcd80c9e301487877e43b4af8",
-          "size": 105273822
+          "name": "karing_1.2.26.2934_android_arm.apk",
+          "sha256": "fa9cd7911f33398e87166fffe6975ce12bf8c07beed99074ac4a354e934b43e7",
+          "size": 106575568
         },
         "android-armv7": {
-          "name": "karing_1.2.26.2930_android_armeabi-v7a.apk",
-          "sha256": "1fa1f8fb77a893a53745f8da46daeb89aff3bd55b57db12936aa55f444ae4d5f",
-          "size": 60567072
+          "name": "karing_1.2.26.2934_android_armeabi-v7a.apk",
+          "sha256": "ca5e3fdec897b5264a9947e52ab4eb2c918c5b6c4c398a8768787cb0c6d16ee7",
+          "size": 61187466
         },
         "android-armv8": {
-          "name": "karing_1.2.26.2930_android_arm64-v8a.apk",
-          "sha256": "1bcd68cfd92cd269dbe3798de701e4a90c3f9b5a88d63db954a237509b808c35",
-          "size": 60199216
+          "name": "karing_1.2.26.2934_android_arm64-v8a.apk",
+          "sha256": "1f6a52d28dde180fef0bd052fc5b1eb9537c4aa3f54ccdf848601d94bba2e75e",
+          "size": 60880648
         },
         "linux-appimage": {
-          "name": "karing_1.2.26.2930_linux_amd64.AppImage",
-          "sha256": "71494d7a5fb75c8547508d7379915d0a621dfd13e40593214869b687698fa695",
-          "size": 73165304
+          "name": "karing_1.2.26.2934_linux_amd64.AppImage",
+          "sha256": "f7202cbd77de6a8e9cda77ae194f158e8e8426262513581cb0cfef785ecc5f37",
+          "size": 73660920
         },
         "linux-deb": {
-          "name": "karing_1.2.26.2930_linux_amd64.deb",
-          "sha256": "44034290960fc9063bf09fe6067cb72ae476def84557eb5af95440857e665803",
-          "size": 50422976
+          "name": "karing_1.2.26.2934_linux_amd64.deb",
+          "sha256": "9cc48412154a30b9d64b076e0ef77bb7ed29e8d1913a517977e5c706e3a0cdf1",
+          "size": 50941916
         },
         "linux-rpm": {
-          "name": "karing_1.2.26.2930_linux_amd64.rpm",
-          "sha256": "38f0ba426883b6641feca5b0f72bb9d50f129cbc30d1983fc4184d9aff32765a",
-          "size": 62158118
+          "name": "karing_1.2.26.2934_linux_amd64.rpm",
+          "sha256": "2146977f0b307c6fbbe1fdb5797a5b3347e510009114541139f9cce1583fdb1a",
+          "size": 62880356
         },
         "macos-universal": {
-          "name": "karing_1.2.26.2930_macos_universal.dmg",
-          "sha256": "2029d3fd5d3471e724c40a9649967852f648035f2341ef18317caf6af2249d7d",
-          "size": 116860924
+          "name": "karing_1.2.26.2934_macos_universal.dmg",
+          "sha256": "eade8421f83695ce440709fb07a477995fa64ff0608e6180d6e4cca1bf7bc79e",
+          "size": 116908954
         },
         "windows-portable": {
-          "name": "karing_1.2.26.2930_windows_x64.zip",
-          "sha256": "47caeade3f707c92263dcb9c5e597092cdbaef491ccb953958e18c72cdb524ca",
-          "size": 74998862
+          "name": "karing_1.2.26.2934_windows_x64.zip",
+          "sha256": "2ae3000741d66656aec2e97bd8181b53522f5a040081201a67d0432e606ddc0e",
+          "size": 75023225
         },
         "windows-setup": {
-          "name": "karing_1.2.26.2930_windows_x64.exe",
-          "sha256": "43188363015d8ccadb43d65c29f7141419b5d3407c2741cb398ad185fa45afcf",
-          "size": 52030788
+          "name": "karing_1.2.26.2934_windows_x64.exe",
+          "sha256": "420b1ce1ca55c7b4e1b5ff7041db6b367b54a5f68852ac7d5aad104b563e0252",
+          "size": 52032562
         }
       }
     },
@@ -258,7 +258,7 @@
       }
     }
   },
-  "last_release_tag": "v20261113a",
+  "last_release_tag": "v20261121",
   "schema": 2,
-  "updated_at": "2026-11-13T11:15:49Z"
+  "updated_at": "2026-11-21T00:56:03Z"
 }
